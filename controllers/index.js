@@ -39,16 +39,43 @@ const fetchAlbums = (req, res) => {
 
             const albums = etc.albums[room]
             console.log(albums)
-            
-            if(albums) {
+
+            if (albums) {
                   res.json(albums)
             } else {
-                  res.status(404).json({error: "Room not found"})
+                  res.status(404).json({ error: "Room not found" })
             }
       } catch (err) {
             console.error("Error fetching albums: ", err);
-            res.status(500).json({ error: "internal server error"})
+            res.status(500).json({ error: "internal server error" })
       }
 };
 
-module.exports = { fetchRooms , fetchAlbums };
+// post a new room
+const postRoom = (req, res) => {
+      try {
+            // room param
+            const room = req.body.room
+            // path to json data
+            const jsonData = path.join(__dirname, '..', 'json', 'data.json');
+
+            // read json 
+            const data = fs.readFileSync(jsonData, 'utf-8');
+            // parse json
+            const etc = JSON.parse(data);
+            // write room to json
+            etc.rooms.push(room);
+            fs.writeFileSync(jsonData, JSON.stringify(etc, null, 2), 'utf-8');
+
+            // send response
+            res.status(201).json({ 
+                  message: 'Room added successfully', 
+                  room: room 
+            })
+      } catch (err) {
+            console.error("Error posting room: ", err)
+            res.status(500).json({ error: "interal server error: " + err })
+      }
+};
+
+module.exports = { fetchRooms, fetchAlbums, postRoom };
