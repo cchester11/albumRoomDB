@@ -10,7 +10,7 @@ app.use(helmet());
 const dotenv = require('dotenv');
 dotenv.config();
 
-// environment variables
+// environment variables (used in production)
 const PORT = process.env.PORT;
 const IP = process.env.IP;
 const NODE_ENV = process.env.NODE_ENV;
@@ -36,6 +36,8 @@ const limiter = rateLimit({
 // app.use here
 app.use(cors());
 app.use(limiter);
+app.use(express.json()); // To parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 app.use('/', routes);
 
 // serve static files if need be here
@@ -56,7 +58,7 @@ if (IS_LOCAL) {
                   throw new Error(err)
             }
 
-            console.log('running locally')
+            console.log('running locally on http://localhost:' + 8000)
       })
 } else {
       app.listen(PORT, IP, (err) => {

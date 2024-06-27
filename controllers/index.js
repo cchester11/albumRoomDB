@@ -14,7 +14,8 @@ const fetchRooms = (req, res) => {
             const etc = JSON.parse(data);
 
             // send rooms
-            res.json(data.rooms)
+            res.json(etc.rooms)
+            console.log(etc.rooms)
       } catch (error) {
             console.error('Error retrieving rooms: ', error);
             res.status(500).json({ error: "internal server error" });
@@ -36,9 +37,14 @@ const fetchAlbums = (req, res) => {
             // format data
             const etc = JSON.parse(data);
 
-            const albums = etc.albums.jazz
-
-            res.json(albums)
+            const albums = etc.albums[room]
+            console.log(albums)
+            
+            if(albums) {
+                  res.json(albums)
+            } else {
+                  res.status(404).json({error: "Room not found"})
+            }
       } catch (err) {
             console.error("Error fetching albums: ", err);
             res.status(500).json({ error: "internal server error"})
