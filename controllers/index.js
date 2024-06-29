@@ -78,4 +78,24 @@ const postRoom = (req, res) => {
       }
 };
 
+// post a new album URI
+const postURI = (req, res) => {
+      try {
+            // extract body parts
+            const uri = req.body.uri
+            const room = req.body.room
+            // read json
+            const jsonPath = path.join(__dirname, '..', 'json', 'data.json');
+            const data = fs.readFileSync(jsonPath, 'utf-8');
+            // parse json
+            const etc = JSON.parse(data);
+            // write to albums.room array
+            etc.albums[room].push(uri);
+            // catch error or send response
+      } catch (err) {
+            console.error('Error posting uri: ', err);
+            res.status(500).json({ error: "internal server error: " + err})
+      }
+};
+
 module.exports = { fetchRooms, fetchAlbums, postRoom };
