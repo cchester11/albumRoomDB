@@ -1,7 +1,11 @@
 {
       "rooms": ["Jazz", "Funk", "Rock", "Soul", "Blues"],
       "albums": {
-            "jazz": ["0ulJEIgvLER3RT7rp9ZTLH", "1E2KIuVgKqpaXePUicVY78"],
+            "jazz": [
+                  "0ulJEIgvLER3RT7rp9ZTLH",
+                  "1E2KIuVgKqpaXePUicVY78",
+                  "3PGNm2ibnsl8rldfXjQ1wB"
+            ],
             "funk": ["7Kv0H0XMdIyRs41a6USzrd", "3pdY1TSQHCK98PHqaNYxxc"],
             "rock": ["2cNLZ1fNp7nrpiooIEuvbN", "5l5m1hnH4punS1GQXgEi3T"],
             "soul": ["1B4oPgG5ljWTRxsKcTHAYn"],

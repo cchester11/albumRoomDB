@@ -91,11 +91,15 @@ const postURI = (req, res) => {
             const etc = JSON.parse(data);
             // write to albums.room array
             etc.albums[room].push(uri);
-            // catch error or send response
+            fs.writeFileSync(jsonPath, JSON.stringify(etc, null, 2), 'utf-8')
+            // send response 
+            res.status(500).json({
+                  message: `Album added successfully to the ${room} room`
+            })
       } catch (err) {
             console.error('Error posting uri: ', err);
             res.status(500).json({ error: "internal server error: " + err})
       }
 };
 
-module.exports = { fetchRooms, fetchAlbums, postRoom };
+module.exports = { fetchRooms, fetchAlbums, postRoom, postURI };
