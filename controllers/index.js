@@ -93,7 +93,7 @@ const postURI = (req, res) => {
             etc.albums[room].push(uri);
             fs.writeFileSync(jsonPath, JSON.stringify(etc, null, 2), 'utf-8')
             // send response 
-            res.status(500).json({
+            res.status(201).json({
                   message: `Album added successfully to the ${room} room`
             })
       } catch (err) {
